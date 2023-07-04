@@ -5,12 +5,6 @@
 
 using namespace std;
 using namespace wfrest;
-WFFacilities::WaitGroup wait_group(1);
-
-static void sig_handler(int signo)
-{
-    wait_group.done(); // 使用静态成员函数时，需要指定具体的 wait_group 对象
-}
 
 class WebServer
 {
@@ -140,15 +134,3 @@ private:
     }
 };
 
-int main()
-{
-    signal(SIGINT, sig_handler);
-
-    WebServer server;
-    server.start();
-    while (true)
-    {
-        wait_group.wait();
-    }
-    return 0;
-}

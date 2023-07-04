@@ -21,15 +21,42 @@ public:
 
     ~RTSPLiveCapture()
     {
-        running = false;
-        worker.join();
+        stop();
     }
 
-    //get rtsp frame size info
+    void stop()
+    {
+        if (running)
+        {
+            running = false;
+            worker.join();
+            cap.release();
+        }
+    }
+
+    // get rtsp frame size info
     cv::Size getFrameSize()
     {
         return cv::Size((int)cap.get(cv::CAP_PROP_FRAME_WIDTH),
                         (int)cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+    }
+
+    // get rtsp fps info
+    double getFPS()
+    {
+        return cap.get(cv::CAP_PROP_FPS);
+    }
+
+    // get rtsp frame width info
+    int getFrameWidth()
+    {
+        return (int)cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    }
+
+    // get rtsp frame height info
+    int getFrameHeight()
+    {
+        return (int)cap.get(cv::CAP_PROP_FRAME_HEIGHT);
     }
 
     void update()
@@ -60,23 +87,3 @@ public:
         return ret;
     }
 };
-
-int main()
-{
-    RTSPLiveCapture cap("rtsp://127.0.0.1/live/test");
-    cv::Mat frame;
-    while (true)
-    {
-        if (cap.read(frame))
-        {
-            // 使用你的帧...
-            cv::imshow("Frame", frame);
-        }
-        if (cv::waitKey(1000) == 'q')
-        {
-            break;
-        }
-    }
-    cv::destroyAllWindows();
-    return 0;
-}
