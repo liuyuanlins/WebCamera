@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE "Debug")
 find_package(OpenCV REQUIRED)
 
 
-file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 link_libraries(wfrest)
 add_executable(WebServer ${SRC})
 target_link_libraries(WebServer pthread ${OpenCV_LIBS})

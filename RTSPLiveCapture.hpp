@@ -31,6 +31,7 @@ public:
             running = false;
             worker.join();
             cap.release();
+            
         }
     }
 
