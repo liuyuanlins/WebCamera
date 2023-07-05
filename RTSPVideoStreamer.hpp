@@ -18,12 +18,13 @@ public:
         this->frame_height = frame_height;
         this->fps = fps;
         this->rtsp_url = rtsp_url;
+        ffmpeg = nullptr;
     }
 
     ~RTSPVideoStreamer()
     {
     }
-    
+
     void start()
     {
         if (ffmpeg == nullptr)
