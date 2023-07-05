@@ -41,11 +41,11 @@ public:
         }
     }
 
-    void stop()
+    void stopCameraLiveServer()
     {
         if (serverInit)
         {
-            cout << "stop web server" << endl;
+            cout << "stopCameraLiveServer" << endl;
             serverInit = false;
             this->stop();
         }

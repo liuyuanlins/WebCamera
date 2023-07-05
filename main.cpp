@@ -94,11 +94,12 @@ int main()
                   cout << "json_str: " << json_str << endl;
                   resp->Json(req->json<Json>()); });
 
-    // Perform initialization or other tasks before waiting for startDetect
+    //Perform initialization or other tasks before waiting for startDetect
     std::unique_lock<std::mutex> lock(startDetectMutex);
     startDetectCondition.wait(lock, []
                               { return startDetect; });
-    if(mainLoopRuning == false){
+    if (mainLoopRuning == false)
+    {
         return 0;
     }
     // startDetect is true, continue with the detection process
@@ -106,7 +107,7 @@ int main()
 
     // Perform the detection tasks
 
-    RTSPLiveCapture cap(cameraUrl); 
+    RTSPLiveCapture cap(cameraUrl);
     cv::Mat frame;
     cv::Mat outFrame;
     int width = cap.getFrameWidth();   // 替换为帧的宽度
@@ -149,7 +150,8 @@ int main()
         }
     }
     cv::destroyAllWindows();
+    serv.stopCameraLiveServer();
     streamer.stop();
-    serv.stop();
+
     return 0;
 }
