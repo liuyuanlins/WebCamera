@@ -3,6 +3,11 @@ project(Demo)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE "Debug")
+
+
+
+
+
 find_package(OpenCV REQUIRED)
 
 

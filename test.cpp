@@ -4,6 +4,7 @@
 #include "ImageProcesser.hpp"
 
 static WFFacilities::WaitGroup wait_group(1);
+static bool mainLoopRuning = false;
 static void sig_handler(int signo)
 {
     wait_group.done(); // 使用静态成员函数时，需要指定具体的 wait_group 对象

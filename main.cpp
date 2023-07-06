@@ -27,8 +27,12 @@ static void sig_handler(int signo)
 {
     wait_group.done(); // 使用静态成员函数时，需要指定具体的 wait_group 对象
     cout << "stop web server" << endl;
+
+    if(startDetect == false)
+    {
+        startDetection();
+    }
     mainLoopRuning = false;
-    startDetection();
 }
 
 int main()
@@ -98,8 +102,10 @@ int main()
     std::unique_lock<std::mutex> lock(startDetectMutex);
     startDetectCondition.wait(lock, []
                               { return startDetect; });
+
     if (mainLoopRuning == false)
     {
+        serv.stopCameraLiveServer();
         return 0;
     }
     // startDetect is true, continue with the detection process
